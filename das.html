@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Aplikasi Kerja</title>
+
+<style>
+    body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f2f4f8;
+    }
+
+    /* ================= HEADER ================= */
+    .header{
+    text-align:center;
+    padding:20px;
+    background:linear-gradient(90deg,#1e293b,#334155);
+    }
+    .title-wrap{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    width: fit-content;
+    }
+    .header h1{
+    margin:0;
+    font-size:30px;
+    font-family:Poppins,sans-serif;
+    background:linear-gradient(90deg,#22c55e,#f97316);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));
+    }
+    .subtitle{
+    font-size:15px;
+    margin-top:6px;
+    font-family:Poppins,sans-serif;
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,.6),0 3px 6px rgba(0,0,0,.6);
+    }
+    .logo-header{width:40px}
+
+    /* ================= GRID ================= */
+    .container{
+    padding:16px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+    }
+    @media(max-width:1024px){
+    .container{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:600px){
+    .container{grid-template-columns:repeat(2,1fr)}
+    .header h1{font-size:22px}
+    .logo-header{width:32px}
+    }
+
+    /* ================= CARD ================= */
+    .card{
+    background:#fff;
+    border-radius:12px;
+    padding:20px 10px;
+    text-align:center;
+    text-decoration:none;
+    color:#111;
+    box-shadow:0 4px 8px rgba(0,0,0,.08);
+    position:relative;
+    overflow:hidden;
+    transition:.25s ease;
+    }
+
+    /* hover layer */
+    .card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        rgba(245, 6, 6, 0.75),
+        rgba(241, 241, 241, 0.75)
+    );
+    transform:translateX(-100%);
+    transition:transform .6s ease;
+    z-index:1;
+    }
+
+    .card:hover::before{
+    transform:translateX(0);
+    }
+
+    /* ================= CARD CONTENT ================= */
+
+    /* KUNCI UTAMA */
+    .img-wrap{
+    height:70px;                 /* INI YANG MEMBUAT TITLE LURUS */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:0;                   /* DI BAWAH WARNA HOVER */
+    }
+
+    .img-wrap img{
+    max-height:100%;
+    max-width:100%;
+    object-fit:contain;
+    }
+
+    /* title */
+    .card .title{
+    margin-top:12px;
+    font-weight:bold;
+    font-size:14px;
+    position:relative;
+    z-index:2;                   /* DI ATAS WARNA HOVER */
+    transition:.3s ease;
+    text-shadow:0 1px 2px rgba(0,0,0,.2),0 3px 6px rgba(0,0,0,.15);
+    }
+    .card:hover .title{
+    color:#fff;
+    transform:translateY(-2px);
+    text-shadow:0 2px 4px rgba(0,0,0,.45),0 6px 10px rgba(0,0,0,.35);
+    }
+
+
+    .pemutar{
+        position: sticky;
+        bottom: 16px;
+        margin: 200px 10px 0; /* ⬅️ HANYA INI YANG DIUBAH (hapus auto) */
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, #fa0223, #ffffff);
+        display: flex;
+        align-items: center;
+        animation: pulse 2.5s infinite;
+        justify-content: center;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+        z-index: 800;
+        transition: 
+            transform 0.35s ease,
+            box-shadow 0.35s ease,
+            background 0.35s ease;
+    }
+
+    /* WADAH PEMUTAR */
+    .pemutar-group{
+        position: sticky;
+        bottom: 16px;
+        display: flex;
+        justify-content: center;
+        gap: 4px;          /* 🔥 RAPAT & BERDAMPINGAN */
+        z-index: 800;
+    }
+
+    /* ICON */
+    .pemutar img{
+        width: 45px;
+        height: 45px;
+        transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    @keyframes pulse{
+        0%{box-shadow:0 0 0 0 rgba(255,0,0,.4)}
+        70%{box-shadow:0 0 0 10px rgba(255,0,0,0)}
+        100%{box-shadow:0 0 0 0 rgba(255,0,0,0)}
+    }
+
+    /* ===== HOVER EFFECT ===== */
+    .pemutar:hover{
+        transform: translateY(-6px) scale(1.08);
+        box-shadow: 
+            0 10px 22px rgba(0,0,0,0.35),
+            0 0 0 6px rgba(255,0,0,0.15);
+        background: linear-gradient(90deg, #f30808, #f3f3f3);
+    }
+
+    .pemutar:hover img{
+        transform: scale(1.15);
+        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+    }
+
+
+    /* ================= FOOTER ================= */
+    footer{
+    text-align:center;
+    font-size:9px;
+    font-family:Poppins,sans-serif;
+    padding:12px;
+    }
+    </style>
+    </head>
+
+    <body>
+
+    <header class="header">
+        <div class="title-wrap">
+            <h1>Ruang Kerja Operator</h1>
+            
+        </div>
+        <div class="subtitle">Satu Pintu Untuk Semua Akses</div>
+    </header>
+
+    <div class="container">
+
+        <a class="card" href="https://emis.kemenag.go.id" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/emis.jpg"></div>
+        <div class="title">EMIS</div>
+        </a>
+
+        <a class="card" href="https://emisgtk.kemenag.go.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/emisgtk.png"></div>
+        <div class="title">EMIS GTK</div>
+        </a>
+
+        <a class="card" href="https://vervalsp.data.kemdikbud.go.id" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/vervalsp.jpg"></div>
+        <div class="title">VERVAL SP</div>
+        </a>
+
+        <a class="card" href="https://sso.data.kemendikdasmen.go.id/sys/login?appkey=348310F2-0262-4F5D-B7D1-41F92ECDCA93" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/vervalpd.jpg"></div>
+        <div class="title">VERVAL PD</div>
+        </a>
+        <a class="card" href="https://vervalptk.data.kemdikbud.go.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/vervalptk.png"></div>
+        <div class="title">VERVAL PTK</div>
+        </a>
+
+        <a class="card" href="https://frontend.erkam-v2.kemenag.go.id/dashboard" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/erkam.jpg"></div>
+        <div class="title">ERKAM</div>
+        </a>
+
+        <a class="card" href="https://edm-fe.erkam-v2.kemenag.go.id/login" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/edm.png"></div>
+        <div class="title">EDM</div>
+        </a>
+
+        <a class="card" href="https://pipmadrasah.kemenag.go.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/pip.png"></div>
+        <div class="title">PIP</div>
+        </a>
+
+        <a class="card" href="https://app.ppgkemenag.com/login" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/ppg.png"></div>
+        <div class="title">PPG DALJAB 2025</div>
+        </a>
+
+        <a class="card" href="https://appmadrasah.kemenag.go.id/simsarpras/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/simsarpras.png"></div>
+        <div class="title">SIM SARPRAS</div>
+        </a>
+
+        <a class="card" href="https://tka.kemendikdasmen.go.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/tka.jpg"></div>
+        <div class="title">TKA</div>
+        </a>
+        <a class="card" href="http://localhost:1203/proktor#!/dashboard" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/rdm.png"></div>
+        <div class="title">RDM</div>
+        </a>
+        <a class="card" href="https://pdum.kemenag.go.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/pdum.png"></div>
+        <div class="title">PDUM</div>
+        </a>
+        <a class="card" href="https://portal.snpmb.id/" target="_blank" rel="noopener noreferrer">
+        <div class="img-wrap"><img src="logo/snpmb.png"></div>
+        <div class="title">SNPMB</div>
+        </a>
+    </div>
+
+    <div class="pemutar-group">
+
+        <a class="pemutar" href="https://www.youtube.com/" target="_blank" rel="noopener">
+            <img src="logo/youtube.png" alt="YouTube">
+        </a>
+
+        <a class="pemutar" href="https://chatgpt.com/" 
+        style="
+        background: linear-gradient(90deg, #2a2a2b, #ecebee);"target="_blank" rel="noopener">
+            <img src="logo/chatgpt.png" alt="ChatGPT">
+        </a>
+        <a class="pemutar" href="https://chat.deepseek.com/" 
+        style="
+        background: linear-gradient(90deg, #1080e9, #ecebee);" target="_blank" rel="noopener">
+            <img src="logo/deepseek.png" alt="deepseek">
+        </a>
+        <a class="pemutar" href="https://web.whatsapp.com/" style="
+        background: linear-gradient(90deg, #46e65b, #e5e1eb);" target="_blank" rel="noopener">
+            <img src="logo/wa.png" alt="WhatsApp">
+        </a>
+
+    </div>
+
+
+    
+
+
+<footer>© 2025 Dashboard Pribadi | Ahmad Muhajirin Berutu</footer>
+
+</body>
+</html>
